@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>mutter64.png</file>
+        <file>mutter64.svg</file>
+        <file>mutter64-red.svg</file>
+        <file>mutter80.png</file>
+    </qresource>
+</RCC>
