@@ -13,10 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        dialog.cpp
+    application.cpp
 
-HEADERS  += dialog.h \
-    view.h
+HEADERS  += \
+    view.h \
+    application.h
 
 # includes for the libappindicator
 # /usr/lib/x86_64-linux-gnu libglib-2.0.a
