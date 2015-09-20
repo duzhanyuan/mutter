@@ -6,7 +6,10 @@
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QAction>
-//#include "ubuntu_indicator.h"
+#include <QtWebEngineWidgets>
+#include <QtWebChannel/QtWebChannel>
+#include <QtWebSockets/QtWebSockets>
+
 namespace Ui {
 class Dialog;
 }
@@ -20,11 +23,13 @@ public:
     ~Dialog();
     QSystemTrayIcon *trayIcon;
     QMenu *trayMenu;
+    QWebEngineView *view;
 private:
     Ui::Dialog *ui;
 public slots:
+    void appFriends();
     void appExit();
-
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // DIALOG_H

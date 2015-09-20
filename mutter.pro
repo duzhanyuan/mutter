@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT += webenginewidgets webchannel websockets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = mutter
@@ -15,7 +15,8 @@ TEMPLATE = app
 SOURCES += main.cpp\
         dialog.cpp
 
-HEADERS  += dialog.h
+HEADERS  += dialog.h \
+    view.h
 
 # includes for the libappindicator
 # /usr/lib/x86_64-linux-gnu libglib-2.0.a
@@ -30,9 +31,9 @@ INCLUDEPATH += "/usr/lib/x86_64-linux-gnu/gtk-2.0/include"
 INCLUDEPATH += "/usr/include/gdk-pixbuf-2.0"
 INCLUDEPATH += "/usr/include/atk-1.0"
 
-LIBS += -L/usr/lib/x86_64-linux-gnu -lgobject-2.0
-LIBS += -L/usr/lib/x86_64-linux-gnu -lappindicator
-LIBS += -L/usr/lib/x86_64-linux-gnu -lgtk-x11-2.0
+#LIBS += -L/usr/lib/x86_64-linux-gnu -lgobject-2.0
+#LIBS += -L/usr/lib/x86_64-linux-gnu -lappindicator
+#LIBS += -L/usr/lib/x86_64-linux-gnu -lgtk-x11-2.0
 
 #These seem to not be needed
 #LIBS += -L/usr/lib/x86_64-linux-gnu -lcairo
@@ -42,7 +43,7 @@ LIBS += -L/usr/lib/x86_64-linux-gnu -lgtk-x11-2.0
 # end incudes for libappindicator
 
 
-FORMS    += dialog.ui
+#FORMS    += dialog.ui
 
 RESOURCES += \
     resource.qrc
