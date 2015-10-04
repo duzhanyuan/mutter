@@ -91,5 +91,13 @@ void Application::featurePermissionRequested(QUrl url, QWebEnginePage::Feature f
         std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MediaVideoCapture - Granted" << std::endl;
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
+    case QWebEnginePage::MouseLock:
+        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MouseLock - Granted" << std::endl;
+        view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
+        break;
+    case QWebEnginePage::Notifications:
+        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MouseLock - Granted" << std::endl;
+        view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
+        break;
     }
 }
