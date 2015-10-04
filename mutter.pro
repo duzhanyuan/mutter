@@ -48,3 +48,6 @@ INCLUDEPATH += "/usr/include/atk-1.0"
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES += \
+    depends.txt

@@ -21,7 +21,8 @@ protected:
 private slots:
  void appFriends();
  void appExit();
-
+ void featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature);
+ void featurePermissionRequested(QUrl,QWebEnginePage::Feature);
 private:
     QSystemTrayIcon *trayIcon;
     QMenu *trayMenu;

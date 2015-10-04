@@ -9,7 +9,9 @@ Application::Application() {
     view->settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
-    view->load(QUrl("http://www.google.co.uk"));
+
+    view->load(QUrl("https://test.webrtc.org/"));
+//    view->load(QUrl("https://talky.io/under-a-rough-forest"));
 
     this->setCentralWidget(view);
 
@@ -29,6 +31,9 @@ Application::Application() {
 
     connect(actionFriends, SIGNAL(triggered()), this, SLOT(appFriends()));
     connect(actionExit, SIGNAL(triggered()), this, SLOT(appExit()));
+    //
+    connect(view->page(), SIGNAL(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)));
+    connect(view->page(), SIGNAL(featurePermissionRequested(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequested(QUrl,QWebEnginePage::Feature)));
 }
 
 void Application::closeEvent(QCloseEvent *event) {
@@ -47,4 +52,13 @@ void Application::appFriends() {
 void Application::appExit() {
     blockExit = false;
     exit(0);
+}
+
+void Application::featurePermissionRequestCanceled(QUrl url, QWebEnginePage::Feature feature) {
+    view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
+}
+
+void Application::featurePermissionRequested(QUrl url, QWebEnginePage::Feature feature) {
+    view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
+//    feature::setFeaturePermission()
 }
