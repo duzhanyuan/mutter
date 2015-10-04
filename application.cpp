@@ -96,7 +96,7 @@ void Application::featurePermissionRequested(QUrl url, QWebEnginePage::Feature f
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     case QWebEnginePage::Notifications:
-        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MouseLock - Granted" << std::endl;
+        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: Notifications - Granted" << std::endl;
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     }
