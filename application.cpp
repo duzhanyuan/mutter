@@ -1,5 +1,8 @@
 #include <QtWidgets>
 #include <QWebEngineView>
+#include <QString>
+#include <string>
+#include <iostream>
 #include "application.h"
 Application::Application() {
     this->setWindowIcon(QIcon(":/images/mutter64.svg"));
@@ -35,6 +38,7 @@ Application::Application() {
     //
     connect(view->page(), SIGNAL(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)));
     connect(view->page(), SIGNAL(featurePermissionRequested(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequested(QUrl,QWebEnginePage::Feature)));
+    std::cout << "Application Constructor" << std::endl;
 }
 
 void Application::closeEvent(QCloseEvent *event) {
@@ -58,6 +62,7 @@ void Application::appShowTest() {
 
 void Application::appExit() {
     blockExit = false;
+    this->close();
     exit(0);
 }
 
@@ -66,6 +71,25 @@ void Application::featurePermissionRequestCanceled(QUrl url, QWebEnginePage::Fea
 }
 
 void Application::featurePermissionRequested(QUrl url, QWebEnginePage::Feature feature) {
-    view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
-//    feature::setFeaturePermission()
+    QDateTime dateTime = QDateTime::currentDateTime();
+    QString dateString = dateTime.toString("yyyy.MM.dd hh:mm:ss:zzz");
+
+    switch(feature) {
+    case QWebEnginePage::Geolocation:
+        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: Geolocation - Denied" << std::endl;
+        view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionDeniedByUser);
+        break;
+    case QWebEnginePage::MediaAudioCapture:
+        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MediaAudioCapture - Granted" << std::endl;
+        view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
+        break;
+    case QWebEnginePage::MediaAudioVideoCapture:
+        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MediaAudioVideoCapture - Granted" << std::endl;
+        view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
+        break;
+    case QWebEnginePage::MediaVideoCapture:
+        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MediaVideoCapture - Granted" << std::endl;
+        view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
+        break;
+    }
 }
