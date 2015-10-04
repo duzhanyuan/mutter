@@ -5,21 +5,21 @@ Application::Application() {
     this->setWindowIcon(QIcon(":/images/mutter64.svg"));
 
     view = new QWebEngineView();
+    this->setCentralWidget(view);
     view->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
-
     view->load(QUrl("https://test.webrtc.org/"));
-//    view->load(QUrl("https://talky.io/under-a-rough-forest"));
-
-    this->setCentralWidget(view);
-
-    QAction *actionFriends = new QAction("Friends", trayMenu);
-    QAction *actionExit = new QAction("Exit", trayMenu);
 
     trayMenu = new QMenu(this);
-    trayMenu->addAction(actionFriends);
+
+    QAction *actionShowTalky = new QAction("Show Talky", trayMenu);
+    QAction *actionShowTest = new QAction("Show Troubleshooter", trayMenu);
+    QAction *actionExit = new QAction("Exit", trayMenu);
+
+    trayMenu->addAction(actionShowTalky);
+    trayMenu->addAction(actionShowTest);
     trayMenu->addAction(actionExit);
 
     trayIcon = new QSystemTrayIcon(this);
@@ -29,7 +29,8 @@ Application::Application() {
 
     blockExit = true;
 
-    connect(actionFriends, SIGNAL(triggered()), this, SLOT(appFriends()));
+    connect(actionShowTalky, SIGNAL(triggered()), this, SLOT(appShowTalky()));
+    connect(actionShowTest, SIGNAL(triggered()), this, SLOT(appShowTest()));
     connect(actionExit, SIGNAL(triggered()), this, SLOT(appExit()));
     //
     connect(view->page(), SIGNAL(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)));
@@ -45,7 +46,13 @@ void Application::closeEvent(QCloseEvent *event) {
     }
 }
 
-void Application::appFriends() {
+void Application::appShowTalky() {
+    view->load(QUrl("https://talky.io/under-a-rough-forest"));
+    this->show();
+}
+
+void Application::appShowTest() {
+    view->load(QUrl("https://test.webrtc.org/"));
     this->show();
 }
 

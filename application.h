@@ -19,7 +19,8 @@ protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
- void appFriends();
+ void appShowTalky();
+ void appShowTest();
  void appExit();
  void featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature);
  void featurePermissionRequested(QUrl,QWebEnginePage::Feature);
