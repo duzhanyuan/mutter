@@ -16,8 +16,8 @@ SOURCES += main.cpp\
     application.cpp
 
 HEADERS  += \
-    view.h \
-    application.h
+    application.h \
+    debugger.h
 
 # includes for the libappindicator
 # /usr/lib/x86_64-linux-gnu libglib-2.0.a

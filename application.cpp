@@ -1,9 +1,11 @@
 #include <QtWidgets>
 #include <QWebEngineView>
 #include <QString>
+#include <stdio.h>
 #include <string>
 #include <iostream>
 #include "application.h"
+#include "debugger.h"
 Application::Application() {
     this->setWindowIcon(QIcon(":/images/mutter64.svg"));
 
@@ -35,10 +37,10 @@ Application::Application() {
     connect(actionShowTalky, SIGNAL(triggered()), this, SLOT(appShowTalky()));
     connect(actionShowTest, SIGNAL(triggered()), this, SLOT(appShowTest()));
     connect(actionExit, SIGNAL(triggered()), this, SLOT(appExit()));
-    //
     connect(view->page(), SIGNAL(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)));
     connect(view->page(), SIGNAL(featurePermissionRequested(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequested(QUrl,QWebEnginePage::Feature)));
-    std::cout << "Application Constructor" << std::endl;
+
+    debug("Application::Application()");
 }
 
 void Application::closeEvent(QCloseEvent *event) {
@@ -51,7 +53,7 @@ void Application::closeEvent(QCloseEvent *event) {
 }
 
 void Application::appShowTalky() {
-    view->load(QUrl("https://talky.io/under-a-rough-forest"));
+    view->load(QUrl("https://talky.io/"));
     this->show();
 }
 
@@ -71,32 +73,29 @@ void Application::featurePermissionRequestCanceled(QUrl url, QWebEnginePage::Fea
 }
 
 void Application::featurePermissionRequested(QUrl url, QWebEnginePage::Feature feature) {
-    QDateTime dateTime = QDateTime::currentDateTime();
-    QString dateString = dateTime.toString("yyyy.MM.dd hh:mm:ss:zzz");
-
     switch(feature) {
     case QWebEnginePage::Geolocation:
-        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: Geolocation - Denied" << std::endl;
+        debug("featurePermissionRequested(url, Geolocation, PermissionDeniedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionDeniedByUser);
         break;
     case QWebEnginePage::MediaAudioCapture:
-        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MediaAudioCapture - Granted" << std::endl;
+        debug("featurePermissionRequested(url, MediaAudioCapture, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     case QWebEnginePage::MediaAudioVideoCapture:
-        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MediaAudioVideoCapture - Granted" << std::endl;
+        debug("featurePermissionRequested(url, MediaAudioVideoCapture, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     case QWebEnginePage::MediaVideoCapture:
-        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MediaVideoCapture - Granted" << std::endl;
+        debug("featurePermissionRequested(url, MediaVideoCapture, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     case QWebEnginePage::MouseLock:
-        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: MouseLock - Granted" << std::endl;
+        debug("featurePermissionRequested(url, MouseLock, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     case QWebEnginePage::Notifications:
-        std::cout << dateString.toUtf8().constData() << " featurePermissionRequested: Notifications - Granted" << std::endl;
+        debug("featurePermissionRequested(url, Notifications, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     }
