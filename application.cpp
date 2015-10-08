@@ -21,10 +21,12 @@ Application::Application() {
 
     QAction *actionShowTalky = new QAction("Show Talky", trayMenu);
     QAction *actionShowTest = new QAction("Show Troubleshooter", trayMenu);
+    QAction *actionShowLocalApp = new QAction("Show Local App", trayMenu);
     QAction *actionExit = new QAction("Exit", trayMenu);
 
     trayMenu->addAction(actionShowTalky);
     trayMenu->addAction(actionShowTest);
+    trayMenu->addAction(actionShowLocalApp);
     trayMenu->addAction(actionExit);
 
     trayIcon = new QSystemTrayIcon(this);
@@ -36,6 +38,7 @@ Application::Application() {
 
     connect(actionShowTalky, SIGNAL(triggered()), this, SLOT(appShowTalky()));
     connect(actionShowTest, SIGNAL(triggered()), this, SLOT(appShowTest()));
+    connect(actionShowLocalApp, SIGNAL(triggered()), this, SLOT(appShowLocalApp()));
     connect(actionExit, SIGNAL(triggered()), this, SLOT(appExit()));
     connect(view->page(), SIGNAL(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)));
     connect(view->page(), SIGNAL(featurePermissionRequested(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequested(QUrl,QWebEnginePage::Feature)));
@@ -59,6 +62,11 @@ void Application::appShowTalky() {
 
 void Application::appShowTest() {
     view->load(QUrl("https://test.webrtc.org/"));
+    this->show();
+}
+
+void Application::appShowLocalApp() {
+    view->load(QUrl::fromLocalFile(QFileInfo("html/login.html").absoluteFilePath()));
     this->show();
 }
 
