@@ -15,7 +15,6 @@ Application::Application() {
     view->settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
-    view->load(QUrl("https://test.webrtc.org/"));
 
     trayMenu = new QMenu(this);
 
@@ -44,6 +43,7 @@ Application::Application() {
     connect(view->page(), SIGNAL(featurePermissionRequested(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequested(QUrl,QWebEnginePage::Feature)));
 
     debug("Application::Application()");
+    appShowLocalApp();
 }
 
 void Application::closeEvent(QCloseEvent *event) {
