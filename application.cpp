@@ -66,7 +66,7 @@ void Application::appShowTest() {
 }
 
 void Application::appShowLocalApp() {
-    view->load(QUrl::fromLocalFile(QFileInfo("html/login.html").absoluteFilePath()));
+    view->load(QUrl::fromLocalFile(QFileInfo("html/main-screen.html").absoluteFilePath()));
     this->show();
 }
 
