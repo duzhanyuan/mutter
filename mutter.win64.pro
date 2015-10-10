@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT += core gui
 QT += webenginewidgets webchannel websockets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,11 +22,8 @@ HEADERS  += \
 RESOURCES += \
     resource.qrc
 
-DISTFILES += \
-    depends.txt
-
-copydata.commands = $(COPY_DIR) $$PWD/html $$OUT_PWD
-first.depends = $(first) copydata
-export(first.depends)
-export(copydata.commands)
-QMAKE_EXTRA_TARGETS += first copydata
+#copydata.commands = $(COPY_DIR) $$PWD/html $$OUT_PWD
+#first.depends = $(first) copydata
+#export(first.depends)
+#export(copydata.commands)
+#QMAKE_EXTRA_TARGETS += first copydata
