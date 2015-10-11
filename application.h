@@ -1,8 +1,9 @@
 #ifndef APPLICATION
 #define APPLICATION
+// mutter
 #include "webpage.h"
 #include "debugger.h"
-
+// Qt
 #include <QtWidgets>
 #include <QIcon>
 #include <QSystemTrayIcon>
@@ -14,8 +15,8 @@
 #include <QtWebSockets/QtWebSockets>
 #include <QtWidgets>
 #include <QWebEngineView>
-
 #include <QString>
+// C++
 #include <stdio.h>
 #include <string>
 #include <iostream>
