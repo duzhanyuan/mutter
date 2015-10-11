@@ -19,14 +19,17 @@
   </head>
   <body>
     <div class="container-app">
-      <div>
-        <div class="col-lg-10"></div>
+      <div class="row">
+        <div class="col-lg-10">
+          &nbsp;
+        </div>
         <div class="col-lg-2 text-right">
-          <button class="btn btn-primary" id="button-exit">
-            Exit
-          <span class="glyphicon glyphicon-off" > </span>
-          <div>
-      </button>
+          <button class="" id="button-minimise">
+            <span class="glyphicon glyphicon-minus"> </span>
+          </button>
+          <button class="" id="button-exit">
+            <span class="glyphicon glyphicon-remove"> </span>
+          </button>
       </div>
       <div class="left-col" style="border-right: 1px solid #000000; position: absolute; bottom: 0;">
         <div class="container">
@@ -96,5 +99,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/actions.js"></script>
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+
   </body>
 </html>

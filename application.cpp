@@ -6,6 +6,7 @@ Application::Application() {
     // Frameless window
     this->setWindowFlags(Qt::FramelessWindowHint);
 
+
     view = new QWebEngineView();
     this->setCentralWidget(view);
     view->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
@@ -13,18 +14,18 @@ Application::Application() {
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
 
-//    page = (WebPage) view->page();
     page = new WebPage();
+//    page->webChannel()->connect();
     view->setPage(page);
 
     trayMenu = new QMenu(this);
 
-    QAction *actionShowTalky = new QAction("Show Talky", trayMenu);
+//    QAction *actionShowTalky = new QAction("Show Talky", trayMenu);
     QAction *actionShowTest = new QAction("Show Troubleshooter", trayMenu);
     QAction *actionShowLocalApp = new QAction("Show Local App", trayMenu);
     QAction *actionExit = new QAction("Exit", trayMenu);
 
-    trayMenu->addAction(actionShowTalky);
+//    trayMenu->addAction(actionShowTalky);
     trayMenu->addAction(actionShowTest);
     trayMenu->addAction(actionShowLocalApp);
     trayMenu->addAction(actionExit);
@@ -36,7 +37,7 @@ Application::Application() {
 
     blockExit = true;
 
-    connect(actionShowTalky, SIGNAL(triggered()), this, SLOT(appShowTalky()));
+//    connect(actionShowTalky, SIGNAL(triggered()), this, SLOT(appShowTalky()));
     connect(actionShowTest, SIGNAL(triggered()), this, SLOT(appShowTest()));
     connect(actionShowLocalApp, SIGNAL(triggered()), this, SLOT(appShowLocalApp()));
     connect(actionExit, SIGNAL(triggered()), this, SLOT(appExit()));
