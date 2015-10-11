@@ -41,7 +41,7 @@ Application::Application() {
     connect(actionExit, SIGNAL(triggered()), this, SLOT(appExit()));
     connect(view->page(), SIGNAL(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)));
     connect(view->page(), SIGNAL(featurePermissionRequested(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequested(QUrl,QWebEnginePage::Feature)));
-
+    connect(view->page(), SIGNAL(windowCloseRequested()), this, SLOT(windowCloseRequested()));
     debug("Application::Application()");
     appShowLocalApp();
 }
@@ -68,6 +68,10 @@ void Application::appShowTest() {
 void Application::appShowLocalApp() {
     view->load(QUrl::fromLocalFile(QFileInfo("html/main-screen.html").absoluteFilePath()));
     this->show();
+}
+
+void Application::windowCloseRequested() {
+    appExit();
 }
 
 void Application::appExit() {

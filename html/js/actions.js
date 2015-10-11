@@ -16,4 +16,9 @@ $(document).ready(function () {
       $('#myModal').modal('hide')
     })
   })
+  $('#button-exit').click(function () {
+    // alert('button-exit clicked')
+    close()
+    return true;
+  })
 });
