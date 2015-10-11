@@ -3,6 +3,8 @@
 
 Application::Application() {
     this->setWindowIcon(QIcon(":/images/mutter64.svg"));
+    // Frameless window
+    this->setWindowFlags(Qt::FramelessWindowHint);
 
     view = new QWebEngineView();
     this->setCentralWidget(view);
