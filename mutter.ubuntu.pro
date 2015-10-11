@@ -13,11 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    application.cpp
+    application.cpp \
+    webpage.cpp \
+    debugger.cpp
 
 HEADERS  += \
     application.h \
-    debugger.h
+    debugger.h \
+    webpage.h
 
 # includes for the libappindicator
 # /usr/lib/x86_64-linux-gnu libglib-2.0.a

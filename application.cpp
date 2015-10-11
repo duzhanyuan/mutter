@@ -1,11 +1,6 @@
-#include <QtWidgets>
-#include <QWebEngineView>
-#include <QString>
-#include <stdio.h>
-#include <string>
-#include <iostream>
+
 #include "application.h"
-#include "debugger.h"
+
 Application::Application() {
     this->setWindowIcon(QIcon(":/images/mutter64.svg"));
 
@@ -15,6 +10,10 @@ Application::Application() {
     view->settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
     view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
+
+//    page = (WebPage) view->page();
+    page = new WebPage();
+    view->setPage(page);
 
     trayMenu = new QMenu(this);
 
@@ -39,10 +38,12 @@ Application::Application() {
     connect(actionShowTest, SIGNAL(triggered()), this, SLOT(appShowTest()));
     connect(actionShowLocalApp, SIGNAL(triggered()), this, SLOT(appShowLocalApp()));
     connect(actionExit, SIGNAL(triggered()), this, SLOT(appExit()));
-    connect(view->page(), SIGNAL(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)));
-    connect(view->page(), SIGNAL(featurePermissionRequested(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequested(QUrl,QWebEnginePage::Feature)));
-    connect(view->page(), SIGNAL(windowCloseRequested()), this, SLOT(windowCloseRequested()));
-    debug("Application::Application()");
+    connect(page, SIGNAL(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequestCanceled(QUrl,QWebEnginePage::Feature)));
+    connect(page, SIGNAL(featurePermissionRequested(QUrl,QWebEnginePage::Feature)), this, SLOT(featurePermissionRequested(QUrl,QWebEnginePage::Feature)));
+//    connect(page, SIGNAL(page->javaScriptConsoleMessage();))
+    connect(page, SIGNAL(windowCloseRequested()), this, SLOT(windowCloseRequested()));
+    connect(page, SIGNAL(titleChanged(QString)), this, SLOT(titleChanged(QString)));
+    Console::cliDebug("Application::Application()");
     appShowLocalApp();
 }
 
@@ -70,6 +71,10 @@ void Application::appShowLocalApp() {
     this->show();
 }
 
+void Application::titleChanged(QString title) {
+    this->setWindowTitle(title);
+}
+
 void Application::windowCloseRequested() {
     appExit();
 }
@@ -87,27 +92,27 @@ void Application::featurePermissionRequestCanceled(QUrl url, QWebEnginePage::Fea
 void Application::featurePermissionRequested(QUrl url, QWebEnginePage::Feature feature) {
     switch(feature) {
     case QWebEnginePage::Geolocation:
-        debug("featurePermissionRequested(url, Geolocation, PermissionDeniedByUser)");
+        Console::cliDebug("featurePermissionRequested(url, Geolocation, PermissionDeniedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionDeniedByUser);
         break;
     case QWebEnginePage::MediaAudioCapture:
-        debug("featurePermissionRequested(url, MediaAudioCapture, PermissionGrantedByUser)");
+        Console::cliDebug("featurePermissionRequested(url, MediaAudioCapture, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     case QWebEnginePage::MediaAudioVideoCapture:
-        debug("featurePermissionRequested(url, MediaAudioVideoCapture, PermissionGrantedByUser)");
+        Console::cliDebug("featurePermissionRequested(url, MediaAudioVideoCapture, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     case QWebEnginePage::MediaVideoCapture:
-        debug("featurePermissionRequested(url, MediaVideoCapture, PermissionGrantedByUser)");
+        Console::cliDebug("featurePermissionRequested(url, MediaVideoCapture, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     case QWebEnginePage::MouseLock:
-        debug("featurePermissionRequested(url, MouseLock, PermissionGrantedByUser)");
+        Console::cliDebug("featurePermissionRequested(url, MouseLock, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     case QWebEnginePage::Notifications:
-        debug("featurePermissionRequested(url, Notifications, PermissionGrantedByUser)");
+        Console::cliDebug("featurePermissionRequested(url, Notifications, PermissionGrantedByUser)");
         view->page()->setFeaturePermission(url, feature, QWebEnginePage::PermissionGrantedByUser);
         break;
     }
